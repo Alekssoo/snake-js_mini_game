@@ -27,4 +27,4 @@ export default class General {
 
 let Game = new General();
 
-Game.generate(context)
+Game.generate()
