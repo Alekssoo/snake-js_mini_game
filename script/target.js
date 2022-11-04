@@ -1,4 +1,4 @@
-class Target {
+export default class Target {
     constructor() {
         //указываем параметры цели
         //стартовые координаты, цвет

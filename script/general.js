@@ -3,24 +3,28 @@ import Snake from "./snake.js"
 import Target from "./target.js"
 import Result from "./result.js"
 
-let canvas = document.querySelector(".canvas");
-let context = canvas.getContext("2d");
+const canvas = document.querySelector(".canvas");
+const context = canvas.getContext("2d");
 
-class General { 
+export default class General { 
     constructor () {
-        this.Field = new Field();
+        this.Field = new Field(canvas.width, canvas.height);
         this.Snake = new Snake();
         this.Target = new Target();
         this.Result = new Result(0);
     }
 
-    getMofify () {
+    Mofify () {
         //логика и обработка изменений
     }
 
     generate() {
+        context.clearRect(0, 0, this.width, this.height);
+        this.Field.generate(context);
         //генерировать(рисовать) на экране все сущности игры
     }
 }
 
-export default General;
+let Game = new General();
+
+Game.generate(context)

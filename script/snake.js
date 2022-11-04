@@ -1,8 +1,8 @@
-class Snake {
+export default class Snake {
     constructor() {
         //объявление змейки,
         // ее стартовая позиция, длина, цвет
-        this.color = green;
+        this.color = "green";
         this.length = 2;
         this.x = 150;
         this.y = 150;
@@ -41,5 +41,3 @@ class Snake {
 		});
     }
 }
-
-export default Snake;

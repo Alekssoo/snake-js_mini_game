@@ -1,4 +1,4 @@
-class Result {
+export default class Result {
     constructor(result) {
         //начальное количество очков
         this._result = result;
@@ -23,4 +23,3 @@ class Result {
 
 }
 
-export default Result;
