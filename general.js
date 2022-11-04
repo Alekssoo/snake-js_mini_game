@@ -3,6 +3,9 @@ import Snake from "./snake.js"
 import Target from "./target.js"
 import Result from "./result.js"
 
+let canvas = document.querySelector(".canvas");
+let context = canvas.getContext("2d");
+
 class General { 
     constructor () {
         this.Field = new Field();
