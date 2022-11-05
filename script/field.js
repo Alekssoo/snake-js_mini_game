@@ -4,17 +4,20 @@ export default class Field {
         this.width = width;
         this.height = height;
         this.cellSize = 25;
-        this.color = "grey";
-        this.cells = new Map();
+        this.color = "teal";
+        this.cells = new Map(); //массив клеток поля с координатами
     }
 
     generate(context) {  
         //генерация поля для игры
         context.beginPath();
+        //определяем градиент для будущего заполнения
         let gradient = context.createLinearGradient(10, 10, 550, 550);
         gradient.addColorStop(0, "#38705cdd");
-        gradient.addColorStop(1, "teal");
+        gradient.addColorStop(1, this.color);
         context.fillStyle = gradient;
+        //функция для рисования закрашенного прямоугольника
+        // с закругленными углами с помощью дуг
         function fillRoundedRect(ctx, x, y, w, h, r){
             ctx.moveTo(x + (w /2), y);
             ctx.arcTo(x + w, y, x + w, y + (h / 2), r);
@@ -24,10 +27,11 @@ export default class Field {
             ctx.fill()
           }
         fillRoundedRect(context, 0, 0, this.width, this.height, 15);
-
+        //обводим рамками
         context.strokeRect(0, 0, this.width, this.height);
         context.stroke();
-        
+        //рисуем клетки поля и сразу заносим
+        //их индексы и координаты в массив
         let i = 0; let j = 0; let list =[]
         for(let x = 75; x < this.width-75; x += 25) {
             i++; j = 0;

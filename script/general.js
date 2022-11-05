@@ -23,8 +23,8 @@ export default class General {
         context.clearRect(0, 0, this.width, this.height);
         this.Field.generate(context);
         this.Target.generate(context, this.Field.cells);
-        this.Target.getCoordinates(this.Field.cells);
-        this.Target.generate(context, this.Field.cells);
+        this.Target.getCoordinates(this.Field.cells); // для проверки новых координат
+        this.Target.generate(context, this.Field.cells); // рисуем новую цель
     }
 }
 
