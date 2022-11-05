@@ -7,12 +7,13 @@ export default class Target {
         this.y = 250;
     }
 
-    generate(min, max) {
+    generate() {
         //генерация цели
-        return Math.floor(Math.random() * (max - min)) + min;
+        
     }
 
-    getCoordinates() {
+    getCoordinates(min, max) {
         //получаем координаты для новой цели
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 }
