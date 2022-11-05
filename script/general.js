@@ -10,7 +10,7 @@ export default class General {
     constructor () {
         this.Field = new Field(canvas.width, canvas.height);
         this.Snake = new Snake();
-        this.Target = new Target();
+        this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
     }
 
@@ -19,12 +19,15 @@ export default class General {
     }
 
     generate() {
+        //генерировать(рисовать) на экране все сущности игры
         context.clearRect(0, 0, this.width, this.height);
         this.Field.generate(context);
-        //генерировать(рисовать) на экране все сущности игры
+        this.Target.generate(context, this.Field.cells);
+        this.Target.getCoordinates(this.Field.cells);
+        this.Target.generate(context, this.Field.cells);
     }
 }
 
-let Game = new General();
+let game = new General();
 
-Game.generate()
+game.generate()

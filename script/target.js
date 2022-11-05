@@ -1,19 +1,34 @@
 export default class Target {
-    constructor() {
+    constructor(cellsize) {
         //указываем параметры цели
         //стартовые координаты, цвет
         this.color = "red";
-        this.x = 250;
-        this.y = 250;
+        this.x = 0;
+        this.y = 0;
+        this.radius = cellsize/2;
     }
 
-    generate() {
+    generate(context,cells) {
         //генерация цели
-        
+        if (this.x === 0 && this.y === 0) {
+        this.x = cells[[3,5]][0] + this.radius;console.log(this.x);
+        this.y = cells[[3,5]][1] + this.radius;console.log(this.y);
+        }
+        context.beginPath();
+        let gradient = context.createLinearGradient(this.x, this.y, this.x+10, this.y+10);
+        gradient.addColorStop(0, "red");
+        gradient.addColorStop(1, "green");
+        context.fillStyle = gradient;
+        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        context.fill()
     }
 
-    getCoordinates(min, max) {
+    getCoordinates(cells) {
         //получаем координаты для новой цели
-        return Math.floor(Math.random() * (max - min)) + min;
+        let randomX = Math.floor(Math.random() * 10) + 1;
+        let randomY = Math.floor(Math.random() * 10) + 1;
+        this.x = cells[[randomX,randomY]][0] + this.radius;
+        this.y = cells[[randomX,randomY]][1] + this.radius;
+        //Math.floor(Math.random() * (max - min)) + min;
     }
 }
