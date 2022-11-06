@@ -9,8 +9,11 @@ export default class Snake {
         // postion = [150,150]
     }
 
-    defeat() {
+    defeat(result) {
         //условия поражения змейки
+        if (result > localStorage.getItem('game')) {
+            localStorage.setItem('game', result);
+        }
     }
 
     generate() {

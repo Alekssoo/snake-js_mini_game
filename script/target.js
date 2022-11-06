@@ -5,7 +5,7 @@ export default class Target {
         this.color = "red";
         this.x = 0;
         this.y = 0;
-        this.radius = cellsize/2;
+        this.radius = cellsize/2-1;
     }
 
     generate(context,cells) {
@@ -22,7 +22,7 @@ export default class Target {
         gradient.addColorStop(1, "green");
         context.fillStyle = gradient;
         //рисуем цель круглой
-        context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        context.arc(this.x+1, this.y+1, this.radius, 0, 2 * Math.PI);
         context.fill()
     }
 

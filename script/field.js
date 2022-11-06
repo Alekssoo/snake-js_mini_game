@@ -1,3 +1,5 @@
+import Support from "./support.js"
+
 export default class Field {
     constructor(width, height) {
         //инициализация поля для игры
@@ -6,6 +8,7 @@ export default class Field {
         this.cellSize = 25;
         this.color = "teal";
         this.cells = new Map(); //массив клеток поля с координатами
+        this.Support = new Support()
     }
 
     generate(context) {  
@@ -16,17 +19,8 @@ export default class Field {
         gradient.addColorStop(0, "#38705cdd");
         gradient.addColorStop(1, this.color);
         context.fillStyle = gradient;
-        //функция для рисования закрашенного прямоугольника
-        // с закругленными углами с помощью дуг
-        function fillRoundedRect(ctx, x, y, w, h, r){
-            ctx.moveTo(x + (w /2), y);
-            ctx.arcTo(x + w, y, x + w, y + (h / 2), r);
-            ctx.arcTo(x + w, y + h, x + (w / 2), y + h, r);
-            ctx.arcTo(x, y + h, x, y + (h / 2), r);
-            ctx.arcTo(x, y, x + (w / 2), y, r);
-            ctx.fill()
-          }
-        fillRoundedRect(context, 0, 0, this.width, this.height, 15);
+        //рисуем прямоугольное поле
+        this.Support.fillRoundedRect(context, 0, 0, this.width, this.height, 15);
         //обводим рамками
         context.strokeRect(0, 0, this.width, this.height);
         context.stroke();
@@ -44,7 +38,13 @@ export default class Field {
                 //console.log(`${i}-я строка, ${j}-й столбец ${this.cells[[i,j]]}`);
             }
         }
+        context.closePath();
 
+        //рамка для игрового поля
+        context.beginPath();
+        context.rect(71, 171, this.cellSize*10+8, this.cellSize*10+8);
+        context.lineWidth = 5;
+        context.stroke();
         context.closePath();
     }
 
