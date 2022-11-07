@@ -1,11 +1,14 @@
 export default class Snake {
-    constructor() {
+    constructor(fieldSize, cellSize) {
         //объявление змейки,
         // ее стартовая позиция, длина, цвет
         this.color = "green";
-        this.length = 2;
-        this.x = 150;
-        this.y = 150;
+        this.cellSize = cellSize;
+        this.length = 2 * cellSize;
+        this.x = fieldSize/2 - cellSize;
+        this.y = 75 + fieldSize/2;
+        this.dX = cellSize; //направление по оси X
+		this.dY = 0; //направление по оси Y
         // postion = [150,150]
     }
 
@@ -16,8 +19,12 @@ export default class Snake {
         }
     }
 
-    generate() {
+    generate(context) {
         //генерация змейки
+        context.beginPath();
+        context.fillStyle = this.color;
+        context.fillRect(this.x, this.y, this.cellSize * 2, this.cellSize);
+        context.fill();
     }
 
     modify() {
@@ -29,17 +36,17 @@ export default class Snake {
         // обработка нажатия кнопок клавиатуры
         document.addEventListener("keydown",  (event) => {
 			if ( event.code == "KeyW" ) {
-				this.dy = -cellSize;
-				this.dx = 0;
+				this.dY = -cellSize;
+				this.dX = 0;
 			} else if ( event.code == "KeyA" ) {
-				this.dx = -cellSize;
-				this.dy = 0;
+				this.dX = -cellSize;
+				this.dY = 0;
 			} else if ( event.code == "KeyS" ) {
-				this.dy = cellSize;
-				this.dx = 0;
+				this.dY = cellSize;
+				this.dX = 0;
 			} else if ( event.code == "KeyD" ) {
-				this.dx = cellSize;
-				this.dy = 0;
+				this.dX = cellSize;
+				this.dY = 0;
 			}
 		});
     }

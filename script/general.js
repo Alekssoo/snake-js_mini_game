@@ -10,7 +10,7 @@ const context = canvas.getContext("2d");
 export default class General { 
     constructor () {
         this.Field = new Field(canvas.width, canvas.height);
-        this.Snake = new Snake();
+        this.Snake = new Snake(canvas.width, this.Field.cellSize);
         this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
         this.Support = new Support();
@@ -27,8 +27,9 @@ export default class General {
         this.Field.generate(context);
         this.Result.generate(context);
         this.Target.generate(context, this.Field.cells);
-        this.Target.getCoordinates(this.Field.cells); // для проверки новых координат
-        this.Target.generate(context, this.Field.cells); // рисуем новую цель
+        //this.Target.getCoordinates(this.Field.cells); // для проверки новых координат
+        //this.Target.generate(context, this.Field.cells); // рисуем новую цель
+        this.Snake.generate(context);
     }
 }
 
