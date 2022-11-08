@@ -10,15 +10,20 @@ const context = canvas.getContext("2d");
 export default class General { 
     constructor () {
         this.Field = new Field(canvas.width, canvas.height);
-        this.Snake = new Snake(canvas.width, this.Field.cellSize);
+        this.Snake = new Snake(this.Field, this.Field.cellSize);
         this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
         this.Support = new Support();
+        //добавялем изменение сразу сюда ? this.modify() 
+        //а может и некий игровой цикл
         
     }
 
-    Mofify () {
+    modify () {
         //логика и обработка изменений
+        // логично анимацию сделать именно здесь для изменения змеи?
+        this.Snake.modify(this.Target, this.Result);
+        this.Result.generate(context)
     }
 
     generate() {

@@ -1,13 +1,13 @@
 export default class Snake {
-    constructor(fieldSize, cellSize) {
+    constructor(field, cellSize) {
         //объявление змейки,
         // ее стартовая позиция, длина, цвет
         this.color = "green";
         this.cellSize = cellSize;
-        this.length = 2 * cellSize;
+        this.length = 2;
         //начальные координаты
-        this.x = fieldSize/2 - cellSize;
-        this.y = 75 + fieldSize/2;
+        this.x = field.width/2 - cellSize;
+        this.y = field.height/2 + cellSize * 2;
         this.dX = cellSize; //направление по оси X, изначально змейка идет направо
 		this.dY = 0; //направление по оси Y, изначально не движется по вертикали
         this.snakeCells = [];
@@ -18,6 +18,10 @@ export default class Snake {
         if (result > localStorage.getItem('game')) {
             localStorage.setItem('game', result);
         }
+        this.x = fieldSize/2 - cellSize;
+        this.y = 75 + fieldSize/2;
+        this.dX = cellSize;
+		this.dY = 0;
     }
 
     generate(context) {
@@ -28,7 +32,7 @@ export default class Snake {
         context.fill();
     }
 
-    modify() {
+    modify(target, result) {
         //логика(условия) изменения змейки
         this.x += this.dX;
 		this.y += this.dY;
@@ -46,10 +50,37 @@ export default class Snake {
 			this.y = 175;
 		}
 
+        //обновление массива ячеек змейки после изменения, добавляются x,y в начало
         this.snakeCells.unshift( { x: this.x, y: this.y } );
+
+        //удаление лишнего элемента в массиве змейки после изменения
+        if ( this.snakeCells.length > this.length ) {
+			this.snakeCells.pop();
+		}
+
+        
+        this.snakeCells.forEach( (cell, index) => {
+            //вариант поедания цели при равных координатах
+			if ( cell.x === target.x && cell.y === target.y ) {
+				this.length++;
+				result.plus();
+				target.getNewCoordinates(field.cells);
+			}
+            //поражение при врезании змейки в себя
+			for( let i = index + 1; i < this.snakeCells.length; i++ ) {
+	
+				if ( cell.x == this.snakeCells[i].x && cell.y == this.snakeCells[i].y ) {
+					this.defeat(); //нужно где-то взять результат при текущей логике
+					result.drop();
+					target.getNewCoordinates(field.cells);
+				}
+	
+			}
+	
+		} );
     }
 
-    move() {
+    moveControl() {
         // управление змейкой
         // обработка нажатия кнопок клавиатуры
         document.addEventListener("keydown",  (event) => {

@@ -12,8 +12,8 @@ export default class Target {
         //генерация цели
         //ориентируясь на координаты из массива клеток рисуем первую
         if (this.x === 0 && this.y === 0) {
-        this.x = cells[[3,5]][0] + this.radius;console.log(this.x);
-        this.y = cells[[3,5]][1] + this.radius;console.log(this.y);
+        this.x = cells[[3,5]][0] + this.radius;
+        this.y = cells[[3,5]][1] + this.radius;
         }
         context.beginPath();
         //градиентно закрашиваем
@@ -26,7 +26,7 @@ export default class Target {
         context.fill()
     }
 
-    getCoordinates(cells) {
+    getNewCoordinates(cells) {
         //получаем координаты для новой цели
         // пока что генерируется на любую клетку без проверки
         // из массива клеток поля берем координаты случайной клетки
