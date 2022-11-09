@@ -1,12 +1,15 @@
 import Support from "./support.js"
 
 export default class Field {
-    constructor(width, height) {
+    constructor(context, width, height) {
         //инициализация поля для игры
         this.width = width;
         this.height = height;
         this.cellSize = 25;
-        this.color = "teal";
+        //определяем градиентный цвет для поля
+        this.color = context.createLinearGradient(10, 10, 550, 550);
+        this.color.addColorStop(0, "#38705cdd");
+        this.color.addColorStop(1, "teal");
         this.cells = new Map(); //массив клеток поля с координатами
         this.Support = new Support()
     }
@@ -14,11 +17,8 @@ export default class Field {
     generate(context) {  
         //генерация поля для игры
         context.beginPath();
-        //определяем градиент для будущего заполнения
-        let gradient = context.createLinearGradient(10, 10, 550, 550);
-        gradient.addColorStop(0, "#38705cdd");
-        gradient.addColorStop(1, this.color);
-        context.fillStyle = gradient;
+        //определяем градиентный цвет для будущего заполнения
+        context.fillStyle = this.color;
         //рисуем прямоугольное поле
         this.Support.fillRoundedRect(context, 0, 0, this.width, this.height, 15);
         //обводим рамками
@@ -46,6 +46,10 @@ export default class Field {
         context.lineWidth = 5;
         context.stroke();
         context.closePath();
+    }
+
+    fillCell(x, y) {
+        context.fillRect(x, y, this.cellSize, this.cellSize);
     }
 
 }

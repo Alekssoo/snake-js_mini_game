@@ -12,8 +12,8 @@ export default class Target {
         //генерация цели
         //ориентируясь на координаты из массива клеток рисуем первую
         if (this.x === 0 && this.y === 0) {
-        this.x = cells[[3,5]][0] + this.radius;
-        this.y = cells[[3,5]][1] + this.radius;
+            this.x = cells[[3,5]][0] + this.radius;
+            this.y = cells[[3,5]][1] + this.radius;
         }
         context.beginPath();
         //градиентно закрашиваем
@@ -26,14 +26,27 @@ export default class Target {
         context.fill()
     }
 
-    getNewCoordinates(cells) {
+    getNewCoordinates(cells, snakeCells) {
         //получаем координаты для новой цели
-        // пока что генерируется на любую клетку без проверки
+        // настроена проверка для текущей логики без изменения массива cells
         // из массива клеток поля берем координаты случайной клетки
+        
         let randomX = Math.floor(Math.random() * 10) + 1;
         let randomY = Math.floor(Math.random() * 10) + 1;
-        this.x = cells[[randomX,randomY]][0] + this.radius;
-        this.y = cells[[randomX,randomY]][1] + this.radius;
+        let snakeCell = 0;
+        snakeCells.forEach(cell => {
+            if (randomX === cell.x && randomY === cell.y) {
+                snakeCell = 1;
+            } 
+        })
+
+        if (snakeCell) {
+            this.getNewCoordinates(cells, snakeCells)
+        } else {
+            this.x = cells[[randomX,randomY]][0] + this.radius;
+            this.y = cells[[randomX,randomY]][1] + this.radius;
+        }   
+      
         //Math.floor(Math.random() * (max - min)) + min;
     }
 }

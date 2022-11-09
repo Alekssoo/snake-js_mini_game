@@ -31,6 +31,9 @@ export default class Result {
         //увеличение кол-ва заработанных очков
         // и обновление сгенерированного табло при изменениях
         this._result ++;
+        if (this._result > localStorage.getItem('game')) {
+            localStorage.setItem('game', this._result);
+        }
         this.generate(context);
     }
 

@@ -9,7 +9,7 @@ const context = canvas.getContext("2d");
 
 export default class General { 
     constructor () {
-        this.Field = new Field(canvas.width, canvas.height);
+        this.Field = new Field(context, canvas.width, canvas.height);
         this.Snake = new Snake(this.Field, this.Field.cellSize);
         this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
@@ -22,7 +22,7 @@ export default class General {
     modify () {
         //логика и обработка изменений
         // логично анимацию сделать именно здесь для изменения змеи?
-        this.Snake.modify(this.Target, this.Result);
+        this.Snake.modify(this.Field, this.Target, this.Result);
         this.Result.generate(context)
     }
 
@@ -35,6 +35,7 @@ export default class General {
         //this.Target.getCoordinates(this.Field.cells); // для проверки новых координат
         //this.Target.generate(context, this.Field.cells); // рисуем новую цель
         this.Snake.generate(context);
+        this.Snake.moveControl();
     }
 }
 
