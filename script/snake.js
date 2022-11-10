@@ -20,6 +20,8 @@ export default class Snake {
         this.y = 75 + fieldSize/2;
         this.dX = cellSize;
 		this.dY = 0;
+        const btn = document.querySelector('.btn');
+        btn.style.display = "flex";
     }
 
     generate(context) {

@@ -36,6 +36,15 @@ export default class General {
     }
 }
 
-let game = new General();
+function newGame () {
+    new General();
+}
 
-game.generate()
+const btn = document.querySelector('.btn');
+btn.style.display = "none";
+
+document.addEventListener("mousedown", newGame);
+
+document.addEventListener("mouseup", () => {
+    document.removeEventListener("mousedown", newGame);
+})
