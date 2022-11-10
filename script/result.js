@@ -18,7 +18,7 @@ export default class Result {
         this.Support.writeText(context,this._result, 75 + this._width/10, 100 + this._height/1.5);
         //лучший результат, если есть результаты предыдущей игры
         // нужно добавить это условие через localStorage
-        if (this.best > 0) {
+        if (this.best) {
             context.fillStyle = "orangered";
             this.Support.fillRoundedRect(context,225, 100, this._width, this._height, 7);
             this.Support.writeText(context,"best: " + this.best,225 + this._width/15, 100 + this._height/1.5);
@@ -31,6 +31,9 @@ export default class Result {
         //увеличение кол-ва заработанных очков
         // и обновление сгенерированного табло при изменениях
         this._result ++;
+        if (!this.best) {
+            localStorage.setItem('game', 0);
+        }
         if (this._result > localStorage.getItem('game')) {
             localStorage.setItem('game', this._result);
         }
