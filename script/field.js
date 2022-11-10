@@ -26,16 +26,15 @@ export default class Field {
         context.stroke();
         //рисуем клетки поля и сразу заносим
         //их индексы и координаты в массив
-        let i = 0; let j = 0; //let list =[]
+        let i = 0; let j = 0; 
+        //let list =[]
         for(let x = 75; x < this.width-75; x += 25) {
             i++; j = 0;
             for(let y = 175;y < this.height-75; y += 25) {
                 context.strokeRect(x, y, 25, 25);
                 j++;
-                //this.cells.set([i,j],[x,y]);
                 this.cells[[j,i]] = [x,y];
                 //list.push([i,j]);
-                //console.log(`${i}-я строка, ${j}-й столбец ${this.cells[[i,j]]}`);
             }
         }
         context.closePath();

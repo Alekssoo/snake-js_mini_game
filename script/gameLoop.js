@@ -9,7 +9,7 @@ export default class gameLoop {
     animate() {
         requestAnimationFrame(this.animate);
         //пропускаем первые 3 кадра и начинаем игровой цикл
-        if ( ++this.frame < this.frameFrequency) {
+        if (++this.frame < this.frameFrequency) {
             return;
         }
         this.frame = 0;
