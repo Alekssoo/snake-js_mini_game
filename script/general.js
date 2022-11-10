@@ -36,10 +36,6 @@ export default class General {
     }
 }
 
-function newGame () {
-    new General();
-}
-
 const btn = document.querySelector('.btn');
 btn.style.display = "none";
 
@@ -48,3 +44,8 @@ document.addEventListener("mousedown", newGame);
 document.addEventListener("mouseup", () => {
     document.removeEventListener("mousedown", newGame);
 })
+
+function newGame () {
+    new General();
+}
+
