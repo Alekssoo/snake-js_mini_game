@@ -17,30 +17,32 @@ export default class General {
         this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
         this.Support = new Support();
-        canvas.addEventListener("click", this.startGame());      
+        new GameLoop(this.modify(), this.generate());
     }
 
-    modify () {
+    modify() {
         //обработка изменений
         this.Snake.modify(this.Field, this.Target, this.Result);
     }
 
     generate() {
         //генерировать(рисовать) на экране все сущности игры
-        context.clearRect(0, 0, this.width, this.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
         this.Field.generate(context);
         this.Result.generate(context);
         this.Target.generate(context, this.Field.cells);
         this.Snake.generate(context);
     }
 
-    startGame() {
-        new GameLoop(this.modify(), this.generate());
-        canvas.removeEventListener("click", this.startGame());
-        
-    }
 }
 
+let gameStart = new Field(context, canvas.width, canvas.height);
+gameStart.generate(context);
 
+canvas.addEventListener("click", () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    new General();
+});
 
-new General();
+    //canvas.removeEventListener("click", this.startGame);
+//canvas.addEventListener("click", General.generate); 

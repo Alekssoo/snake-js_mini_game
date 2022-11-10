@@ -28,7 +28,7 @@
     box-shadow: none;
     cursor: pointer;
     
-    display: flex;
+    display: none;
     margin: 5px 10px;
     padding: 10px 15px;
     border-radius: 1px;
