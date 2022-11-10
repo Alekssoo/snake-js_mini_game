@@ -26,7 +26,7 @@ export default class Field {
         context.stroke();
         //рисуем клетки поля и сразу заносим
         //их индексы и координаты в массив
-        let i = 0; let j = 0; let list =[]
+        let i = 0; let j = 0; //let list =[]
         for(let x = 75; x < this.width-75; x += 25) {
             i++; j = 0;
             for(let y = 175;y < this.height-75; y += 25) {
