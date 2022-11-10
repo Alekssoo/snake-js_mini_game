@@ -2,7 +2,7 @@ export default class Snake {
     constructor(field, cellSize) {
         //объявление змейки,
         // ее стартовая позиция, длина, цвет
-        this.color = "green";
+        this.color = "mediumblue";
         this.cellSize = cellSize;
         this.length = 2;
         //начальные координаты
@@ -11,10 +11,10 @@ export default class Snake {
         this.dX = cellSize; //направление по оси X, изначально змейка идет направо
 		this.dY = 0; //направление по оси Y, изначально не движется по вертикали
         this.snakeCells = [];
-        
+        this.moveControl();
     }
 
-    defeat(result) {
+    defeat() {
         //условия поражения змейки
         this.x = fieldSize/2 - cellSize;
         this.y = 75 + fieldSize/2;
@@ -48,12 +48,12 @@ export default class Snake {
 			this.y = 175;
 		}
 
-        //обновление массива ячеек змейки после изменения положения,
-        // добавляются x,y в начало
-        this.snakeCells.unshift( { x: this.x, y: this.y } );
+        // добавляем текущие x,y в начало как голову змейки при движении
+        this.snakeCells.unshift( { x: this.x, y: this.y });
+        //this.snakeCells.unshift( { x: this.x + field.cellSize, y: this.y + field.cellSize} );
 
         //удаление лишнего элемента в массиве змейки после изменения положения
-        if ( this.snakeCells.length > this.length ) {
+        if (this.snakeCells.length > this.length) {
             let lastX = this.snakeCells[this.snakeCells.length-1].x;
             let lastY = this.snakeCells[this.snakeCells.length-1].y;
             field.fillCell(lastX, lastY);
@@ -61,25 +61,22 @@ export default class Snake {
 		}
 
         
-        this.snakeCells.forEach( (cell, index) => {
+        this.snakeCells.forEach((cell, index) => {
             //вариант поедания цели при равных координатах
-			if ( cell.x === target.x && cell.y === target.y ) {
+			if (cell.x === target.x && cell.y === target.y) {
 				this.length++;
 				result.plus();
 				target.getNewCoordinates(field.cells, this.snakeCells);
 			}
             //поражение при врезании змейки в себя
-			for( let i = index + 1; i < this.snakeCells.length; i++ ) {
-	
+			for(let i = index + 1; i < this.snakeCells.length; i++) {
 				if ( cell.x == this.snakeCells[i].x && cell.y == this.snakeCells[i].y ) {
-					this.defeat(); //нужно где-то взять результат при текущей логике
+					this.defeat();
 					result.drop();
 					target.getNewCoordinates(field.cells, this.snakeCells);
 				}
-	
 			}
-	
-		} );
+		});
     }
 
     moveControl() {

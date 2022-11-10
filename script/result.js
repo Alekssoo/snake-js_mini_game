@@ -16,8 +16,7 @@ export default class Result {
         context.fillStyle = "orange";
         this.Support.fillRoundedRect(context, 75, 100, this._width, this._height, 7);
         this.Support.writeText(context,this._result, 75 + this._width/10, 100 + this._height/1.5);
-        //лучший результат, если есть результаты предыдущей игры
-        // нужно добавить это условие через localStorage
+        //генерируется табло с лучшим результатом
         if (this.best) {
             context.fillStyle = "orangered";
             this.Support.fillRoundedRect(context,225, 100, this._width, this._height, 7);
