@@ -35,7 +35,7 @@ export default class General {
     }
 
     startGame() {
-        new GameLoop(this.modify(), this.generate())
+        new GameLoop(this.modify(), this.generate());
         canvas.removeEventListener("click", this.startGame());
         
     }
