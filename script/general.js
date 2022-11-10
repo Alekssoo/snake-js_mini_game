@@ -43,3 +43,8 @@ canvas.addEventListener("click", () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     new General();
 });
+
+btn.addEventListener("click", () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    new General();
+})
