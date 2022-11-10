@@ -1,5 +1,4 @@
 export default class gameLoop {
-
     constructor( modify, generate ) {
         this.frame = 0;
         this.frameFrequency = 4; // для замедления частоты кадров в 4 раза(60/4)
