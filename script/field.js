@@ -24,14 +24,14 @@ export default class Field {
         //обводим рамками
         context.strokeRect(0, 0, this.width, this.height);
         context.stroke();
-        //рисуем клетки поля и сразу заносим
+        //рисуем клетки поля и заносим
         //их индексы и координаты в массив
         let i = 0; let j = 0; 
         //let list =[]
         for(let x = 75; x < this.width-75; x += 25) {
             i++; j = 0;
-            for(let y = 175;y < this.height-75; y += 25) {
-                context.strokeRect(x, y, 25, 25);
+            for(let y = 175; y < this.height-75; y += 25) {
+                context.strokeRect(x, y, this.cellSize, this.cellSize);
                 j++;
                 this.cells[[j,i]] = [x,y];
                 //list.push([i,j]);
