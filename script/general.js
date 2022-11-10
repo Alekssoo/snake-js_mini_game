@@ -7,6 +7,8 @@ import GameLoop from "./gameLoop.js"
 
 const canvas = document.querySelector(".canvas");
 const context = canvas.getContext("2d");
+const btn = document.querySelector('.btn');
+btn.style.display = "none";
 
 export default class General { 
     constructor () {
@@ -15,10 +17,7 @@ export default class General {
         this.Target = new Target(this.Field.cellSize);
         this.Result = new Result(0);
         this.Support = new Support();
-        new GameLoop(this.modify(), this.generate());
-        //добавялем изменение сразу сюда ? this.modify() 
-        //а может и некий игровой цикл
-        
+        canvas.addEventListener("click", this.startGame());      
     }
 
     modify () {
@@ -34,18 +33,14 @@ export default class General {
         this.Target.generate(context, this.Field.cells);
         this.Snake.generate(context);
     }
+
+    startGame() {
+        new GameLoop(this.modify(), this.generate())
+        canvas.removeEventListener("click", this.startGame());
+        
+    }
 }
 
-const btn = document.querySelector('.btn');
-btn.style.display = "none";
 
-document.addEventListener("mousedown", newGame);
 
-document.addEventListener("mouseup", () => {
-    document.removeEventListener("mousedown", newGame);
-})
-
-function newGame () {
-    new General();
-}
-
+new General();
