@@ -1,26 +1,26 @@
 export default class Target {
-    constructor(cellsize) {
+    constructor(context, cellsize) {
         //указываем параметры цели
         //стартовые координаты, цвет
-        this.color = "red";
+        //this.color = "red";
         this.x = 0;
         this.y = 0;
         this.radius = cellsize/2-1;
+        this.color = context.createLinearGradient(this.x, this.y, this.x+15, this.y+15);
+        this.color.addColorStop(0, "yellow");
+        this.color.addColorStop(1, "red");
     }
 
     generate(context,cells) {
         //генерация цели
-        //ориентируясь на координаты из массива клеток рисуем первую
+        //ориентируясь на координаты из массива клеток поля рисуем первую
         if (this.x === 0 && this.y === 0) {
             this.x = cells[[3,5]][0] + this.radius;
             this.y = cells[[3,5]][1] + this.radius;
         }
         context.beginPath();
         //градиентно закрашиваем
-        let gradient = context.createLinearGradient(this.x, this.y, this.x+10, this.y+10);
-        gradient.addColorStop(0, "red");
-        gradient.addColorStop(1, "green");
-        context.fillStyle = gradient;
+        context.fillStyle = this.color;
         //рисуем цель круглой
         context.arc(this.x+1, this.y+1, this.radius, 0, 2 * Math.PI);
         context.fill()
@@ -33,6 +33,9 @@ export default class Target {
         
         let randomX = Math.floor(Math.random() * 10) + 1;
         let randomY = Math.floor(Math.random() * 10) + 1;
+
+        //проверяем совпадение новых координат со змейкой
+        
         let snakeCell = 0;
         snakeCells.forEach(cell => {
             if (randomX === cell.x && randomY === cell.y) {
@@ -40,6 +43,7 @@ export default class Target {
             } 
         })
 
+        //и генерируем рекурсией пока не будет совпадать со змейкой
         if (snakeCell) {
             this.getNewCoordinates(cells, snakeCells)
         } else {

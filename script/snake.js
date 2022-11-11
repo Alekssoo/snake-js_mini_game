@@ -16,39 +16,64 @@ export default class Snake {
 
     defeat() {
         //условия поражения змейки
-        this.x = fieldSize/2 - cellSize;
-        this.y = 75 + fieldSize/2;
-        this.dX = cellSize;
-		this.dY = 0;
-        this.length = 2;
-        const btn = document.querySelector('.btn');
-        btn.style.display = "flex";
+        let self = this;
+        this.snakeCells.forEach((cell, index) => {
+            for(let i = index + 1; i < self.snakeCells.length; i++) {
+				if (cell.x == self.snakeCells[i].x && cell.y == self.snakeCells[i].y ) {
+					//self.defeat();
+                    self.dX = 0;
+		            self.dY = 0;
+                    self.length = 2;
+                    //gameStart.generate(context);
+                    const btn = document.querySelector('.btn');
+                    btn.style.display = "flex";
+					result.drop();
+					//target.getNewCoordinates(field.cells, self.snakeCells);
+				}
+			}
+        })
+
+        // this.x = fieldSize/2 - cellSize;
+        // this.y = 75 + fieldSize/2;
+        // this.dX = cellSize;
+		// this.dY = 0;
+        // this.length = 2;
+        //const btn = document.querySelector('.btn');
+        //btn.style.display = "flex";
     }
 
     generate(context) {
         //генерация змейки
-        context.beginPath();
-        context.fillStyle = this.color;
-        context.fillRect(this.x, this.y, this.cellSize * 2, this.cellSize);
-        context.fill();
+
+        this.snakeCells.forEach((cell, index) => {
+			if (index == 0) {
+				context.fillStyle = "#FA0556";
+			} else {
+				context.fillStyle = this.color;
+			}
+			context.fillRect(cell.x, cell.y, this.cellSize, this.cellSize);
+		});
     }
 
-    modify(field, target, result) {
+    modify(context, field, target, result) {
         //логика(условия) изменения змейки
         this.x += this.dX;
 		this.y += this.dY;
 
+        // проверка, нет ли поражения
+        //this.defeat();
+
         //действия при достижении границы поля
-        if (this.x < 75) {
-			this.x = (this.cellSize * 10 + 75) - this.cellSize;
-		} else if ( this.x >= this.cellSize * 10 + 75 ) {
-			this.x = 75;
+        if (this.x < field.gameX) {
+			this.x = (this.cellSize * 10 + field.gameX) - this.cellSize;
+		} else if (this.x >= this.cellSize * 10 + field.gameX) {
+			this.x = field.gameX;
 		}
 	
-		if (this.y < 175) {
-			this.y = (this.cellSize * 10 + 175) - this.cellSize;
-		} else if ( this.y >= this.cellSize * 10 + 175 ) {
-			this.y = 175;
+		if (this.y < field.gameY) {
+			this.y = (this.cellSize * 10 + field.gameY) - this.cellSize;
+		} else if (this.y >= this.cellSize * 10 + field.gameY) {
+			this.y = field.gameY;
 		}
 
         // добавляем текущие x,y в начало как голову змейки при движении
@@ -57,28 +82,25 @@ export default class Snake {
 
         //удаление лишнего элемента в массиве змейки после изменения положения
         if (this.snakeCells.length > this.length) {
-            let lastX = this.snakeCells[this.snakeCells.length-1].x;
-            let lastY = this.snakeCells[this.snakeCells.length-1].y;
-            field.fillCell(lastX, lastY);
 			this.snakeCells.pop();   
 		}
 
-        
+        //let self = this;
         this.snakeCells.forEach((cell, index) => {
-            //вариант поедания цели при равных координатах
-			if (cell.x === target.x && cell.y === target.y) {
+            //вариант поедания цели при равных координатах со змейкой
+			if (cell.x === target.x - target.radius && cell.y === target.y - target.radius) {
 				this.length++;
 				result.plus();
 				target.getNewCoordinates(field.cells, this.snakeCells);
 			}
             //поражение при врезании змейки в себя
-			for(let i = index + 1; i < this.snakeCells.length; i++) {
-				if ( cell.x == this.snakeCells[i].x && cell.y == this.snakeCells[i].y ) {
-					this.defeat();
-					result.drop();
-					target.getNewCoordinates(field.cells, this.snakeCells);
-				}
-			}
+			// for(let i = index + 1; i < self.snakeCells.length; i++) {
+			// 	if (cell.x == self.snakeCells[i].x && cell.y == self.snakeCells[i].y ) {
+			// 		self.defeat();
+			// 		result.drop();
+			// 		target.getNewCoordinates(field.cells, self.snakeCells);
+			// 	}
+			// }
 		});
     }
 
