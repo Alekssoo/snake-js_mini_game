@@ -2,12 +2,11 @@ export default class Target {
     constructor(context, cellsize) {
         //указываем параметры цели
         //стартовые координаты, цвет
-        //this.color = "red";
         this.x = 0;
         this.y = 0;
         this.radius = cellsize/2-1;
-        this.color = context.createLinearGradient(this.x, this.y, this.x+15, this.y+15);
-        this.color.addColorStop(0, "yellow");
+        this.color = context.createLinearGradient(this.x, this.y, this.x+10, this.y+10);
+        this.color.addColorStop(0, "green");
         this.color.addColorStop(1, "red");
     }
 
@@ -19,7 +18,7 @@ export default class Target {
             this.y = cells[[3,5]][1] + this.radius;
         }
         context.beginPath();
-        //градиентно закрашиваем
+        // закрашиваем
         context.fillStyle = this.color;
         //рисуем цель круглой
         context.arc(this.x+1, this.y+1, this.radius, 0, 2 * Math.PI);
@@ -50,7 +49,5 @@ export default class Target {
             this.x = cells[[randomX,randomY]][0] + this.radius;
             this.y = cells[[randomX,randomY]][1] + this.radius;
         }   
-      
-        //Math.floor(Math.random() * (max - min)) + min;
     }
 }

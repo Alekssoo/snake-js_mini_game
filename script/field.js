@@ -1,19 +1,17 @@
-//import Support from "./support.js"
-
 export default class Field {
     constructor(context, width, height) {
         //инициализация поля для игры
         this.width = width;
         this.height = height;
         this.cellSize = 25;
-        this.gameX = 75;
-        this.gameY = 175;
+        // отступы перед игровым полем
+        this.preX = 75;
+        this.preY = 175;
         //определяем градиентный цвет для поля
         this.color = context.createLinearGradient(10, 10, 550, 550);
         this.color.addColorStop(0, "#38705cdd");
         this.color.addColorStop(1, "teal");
         this.cells = new Map(); //массив клеток поля с координатами
-        //this.Support = new Support()
     }
 
     generate(context) {  
@@ -30,9 +28,9 @@ export default class Field {
         //их индексы и координаты в массив
         let i = 0; let j = 0; 
         //let list =[]
-        for(let x = this.gameX; x < this.width - this.gameX; x += this.cellSize) {
+        for(let x = this.preX; x < this.width - this.preX; x += this.cellSize) {
             i++; j = 0;
-            for(let y = this.gameY; y < this.height - this.gameX; y += this.cellSize) {
+            for(let y = this.preY; y < this.height - this.preX; y += this.cellSize) {
                 context.strokeRect(x, y, this.cellSize, this.cellSize);
                 j++;
                 this.cells[[j,i]] = [x,y];

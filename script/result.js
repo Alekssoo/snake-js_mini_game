@@ -1,5 +1,3 @@
-//import Support from "./support.js"
-
 export default class Result {
     constructor(result) {
         //начальное количество очков
@@ -7,7 +5,6 @@ export default class Result {
         this._width = 100;
         this._height = 50;
         this.best = localStorage.getItem('game');
-        //this.Support = new Support();
     }
 
     generate(context, field) {
@@ -16,7 +13,7 @@ export default class Result {
         context.fillStyle = "orange";
         field.fillRoundedRect(context, 75, 100, this._width, this._height, 7);
         field.writeText(context,this._result, 75 + this._width/10, 100 + this._height/1.5);
-        //генерируется табло с лучшим результатом
+        //табло с лучшим результатом
         if (this.best) {
             context.fillStyle = "orangered";
             field.fillRoundedRect(context,200, 100, this._width+25, this._height, 7);
@@ -36,13 +33,11 @@ export default class Result {
         if (this._result > localStorage.getItem('game')) {
             localStorage.setItem('game', this._result);
         }
-        //this.generate(context);
     }
 
     drop() {
         // сброс количества очков на табло при поражении змейки
         this._result = 0;
-        //this.generate(context);
     }
 
 }
