@@ -48,6 +48,8 @@ export default class General {
         this.frame = 0;
         this.modify();
         this.generate();
+        
+        
     }
 
 }

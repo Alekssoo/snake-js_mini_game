@@ -42,6 +42,7 @@ export default class Snake {
 
     generate(context) {
         //генерация змейки
+        context.beginPath();
         this.snakeCells.forEach((cell, index) => {
 			if (index == 0) {
 				context.fillStyle = "orangered";
@@ -50,6 +51,7 @@ export default class Snake {
 			}
 			context.fillRect(cell.x, cell.y, this.cellSize, this.cellSize);
 		});
+        context.closePath();
     }
 
     modify(field, target, result) {

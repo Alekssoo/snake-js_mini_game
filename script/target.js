@@ -23,6 +23,7 @@ export default class Target {
         //рисуем цель круглой
         context.arc(this.x+1, this.y+1, this.radius, 0, 2 * Math.PI);
         context.fill()
+        context.closePath();
     }
 
     getNewCoordinates(cells, snakeCells) {
