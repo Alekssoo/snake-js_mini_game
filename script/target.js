@@ -5,9 +5,9 @@ export default class Target {
         this.x = 0;
         this.y = 0;
         this.radius = cellsize/2-1;
-        this.color = context.createLinearGradient(this.x, this.y, this.x+10, this.y+10);
-        this.color.addColorStop(0, "green");
-        this.color.addColorStop(1, "red");
+        this._color = context.createLinearGradient(this.x, this.y, this.x+5, this.y+5);
+        this._color.addColorStop(0, "black");
+        this._color.addColorStop(1, "orange");
     }
 
     generate(context,cells) {
@@ -19,7 +19,7 @@ export default class Target {
         }
         context.beginPath();
         // закрашиваем
-        context.fillStyle = this.color;
+        context.fillStyle = this._color;
         //рисуем цель круглой
         context.arc(this.x+1, this.y+1, this.radius, 0, 2 * Math.PI);
         context.fill()

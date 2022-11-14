@@ -8,7 +8,7 @@ export default class Field {
         this.preX = 75;
         this.preY = 175;
         //определяем градиентный цвет для поля
-        this.color = context.createLinearGradient(10, 10, 550, 550);
+        this.color = context.createLinearGradient(10, 10, 400, 400);
         this.color.addColorStop(0, "#38705cdd");
         this.color.addColorStop(1, "teal");
         this.cells = new Map(); //массив клеток поля с координатами
