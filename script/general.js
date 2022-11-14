@@ -39,6 +39,7 @@ export default class General {
     }
 
     animate() {
+        //запускаем анимацию, если змейка жива
         if (!this.Snake.death) {
             requestAnimationFrame(this.animate);
             //пропускаем первые 9 кадров и начинаем игровой цикл
@@ -60,19 +61,27 @@ export default class General {
 
 }
 
+//объект для стартового экрана
 let startScreen = {
     field: new Field(context, canvas.width, canvas.height),
     result: new Result(0)
 }
 
+//генерируем сам экран старта с табло результов
 startScreen.field.generate(context);
 startScreen.result.generate(context, startScreen.field);
 
+//функция для запуска игры
 function newGame() {
+    //убираем событие начала игры по клику при запуске игрового цикла
     canvas.removeEventListener("click", newGame);
+    //кнопку делаем невидимой до момента поражения змейки
     btn.style.display = "none";
+    //и начинаем новый игровой цикл
     new General();
 } 
 
+// добавляем функцию начала игры изначально
+// и для клика и для кнопки рестарта
 canvas.addEventListener("click", newGame);
 btn.addEventListener("click", newGame)
