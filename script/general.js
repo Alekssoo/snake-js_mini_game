@@ -25,7 +25,7 @@ export default class General {
     modify() {
         //обработка изменений
 
-        this.Snake.modify(canvas, context, this.Field, this.Target, this.Result);
+        this.Snake.modify(this.Field, this.Target, this.Result);
 
     }
 

@@ -22,6 +22,7 @@ export default class Snake {
         //генерация змейки
         this.snakeCells.forEach((cell, index) => {
             context.beginPath();
+            //context.lineWidth = 3;
 			if (index == 0) {
 				context.fillStyle = this._headColor;
 			} else {
@@ -32,7 +33,7 @@ export default class Snake {
 		});
     }
 
-    defeat(field, canvas, context) {
+    defeat(field) {
         // условия поражения змейки
 
         //действия при достижении границы поля
@@ -54,9 +55,9 @@ export default class Snake {
         })
     }
 
-    modify(canvas, context, field, target, result) {
+    modify(field, target, result) {
         // проверка, жива ли змейка)
-        this.defeat(field, canvas, context);
+        this.defeat(field);
 
         // если нет признака поражения змейки, то двигаемся дальше
         if (!this.death) {
