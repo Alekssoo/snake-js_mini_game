@@ -24,10 +24,9 @@ export default class General {
 
     modify() {
         //обработка изменений
-        if (this.Snake.death) {
-            cancelAnimationFrame(this.animate);
-        }
-        this.Snake.modify(this.Field, this.Target, this.Result);
+
+        this.Snake.modify(canvas, context, this.Field, this.Target, this.Result);
+
     }
 
     generate() {
@@ -40,15 +39,22 @@ export default class General {
     }
 
     animate() {
-        requestAnimationFrame(this.animate);
-        //пропускаем первые 9 кадров и начинаем игровой цикл
-        if (++this.frame < this.frameFrequency) {
-            return;
+        if (!this.Snake.death) {
+            requestAnimationFrame(this.animate);
+            //пропускаем первые 9 кадров и начинаем игровой цикл
+            if (++this.frame < this.frameFrequency) {
+                return;
+            }
+            this.frame = 0;
+            this.modify();
+            this.generate();
         }
-        this.frame = 0;
-        this.modify();
-        this.generate();
-        
+
+        else {
+            // делаем кнопку для
+            // начала новой игры видимой
+            btn.style.display = "flex";
+        }
         
     }
 
@@ -63,9 +69,10 @@ startScreen.field.generate(context);
 startScreen.result.generate(context, startScreen.field);
 
 function newGame() {
+    canvas.removeEventListener("click", newGame);
+    btn.style.display = "none";
     new General();
 } 
 
 canvas.addEventListener("click", newGame);
-
 btn.addEventListener("click", newGame)

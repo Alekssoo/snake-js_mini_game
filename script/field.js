@@ -17,6 +17,7 @@ export default class Field {
     generate(context) {  
         //генерация поля для игры
         context.beginPath();
+        context.lineWidth = 1;
         //определяем градиентный цвет для будущего заполнения
         context.fillStyle = this.color;
         //рисуем прямоугольное поле
@@ -27,15 +28,12 @@ export default class Field {
         //рисуем клетки поля и заносим
         //их индексы и координаты в массив
         let i = 0; let j = 0; 
-        //let list =[]
         for(let x = this.preX; x < this.width - this.preX; x += this.cellSize) {
             i++; j = 0;
             for(let y = this.preY; y < this.height - this.preX; y += this.cellSize) {
                 context.strokeRect(x, y, this.cellSize, this.cellSize);
                 j++;
                 this.cells[[j,i]] = [x,y];
-                //console.log(this.cells[[j,i]])
-                //list.push([i,j]);
             }
         }
         context.closePath();
