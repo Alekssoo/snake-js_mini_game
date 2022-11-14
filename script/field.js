@@ -1,8 +1,8 @@
 export default class Field {
     constructor(context, width, height) {
         //инициализация поля для игры
-        this.width = width;
-        this.height = height;
+        this._width = width;
+        this._height = height;
         this.cellSize = 25;
         // отступы перед игровым полем
         this.preX = 75;
@@ -21,16 +21,16 @@ export default class Field {
         //определяем градиентный цвет для будущего заполнения
         context.fillStyle = this.color;
         //рисуем прямоугольное поле
-        this.fillRoundedRect(context, 0, 0, this.width, this.height, 15);
+        this.fillRoundedRect(context, 0, 0, this._width, this._height, 15);
         //обводим рамками
-        context.strokeRect(0, 0, this.width, this.height);
+        context.strokeRect(0, 0, this._width, this._height);
         context.stroke();
         //рисуем клетки поля и заносим
         //их индексы и координаты в массив
         let i = 0; let j = 0; 
-        for(let x = this.preX; x < this.width - this.preX; x += this.cellSize) {
+        for(let x = this.preX; x < this._width - this.preX; x += this.cellSize) {
             i++; j = 0;
-            for(let y = this.preY; y < this.height - this.preX; y += this.cellSize) {
+            for(let y = this.preY; y < this._height - this.preX; y += this.cellSize) {
                 context.strokeRect(x, y, this.cellSize, this.cellSize);
                 j++;
                 this.cells[[j,i]] = [x,y];
