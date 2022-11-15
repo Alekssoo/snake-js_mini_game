@@ -93,16 +93,16 @@ export default class Snake {
         // проверяем по коду кнопки, какая нажата
         // и что кнопка не в противоположное направление движется
         document.addEventListener("keydown",  (event) => {
-			if (( event.code == "KeyW" || event.code == "38") && (this._dY === 0)) {
+			if (( event.code == "KeyW" || event.code == "ArrowUp") && (this._dY === 0)) {
 				this._dY = -this._cellSize; //вверх
 				this._dX = 0;
-			} else if ( (event.code == "KeyA" || event.code == "37") && (this._dX === 0)) {
+			} else if ( (event.code == "KeyA" || event.code == "ArrowLeft") && (this._dX === 0)) {
 				this._dX = -this._cellSize; //налево
 				this._dY = 0;
-			} else if (( event.code == "KeyS" || event.code == "40") && (this._dY === 0)) {
+			} else if (( event.code == "KeyS" || event.code == "ArrowDown") && (this._dY === 0)) {
 				this._dY = this._cellSize; //вниз
 				this._dX = 0;
-			} else if (( event.code == "KeyD" || event.code == "39" ) && (this._dX === 0)) {
+			} else if (( event.code == "KeyD" || event.code == "ArrowRight" ) && (this._dX === 0)) {
 				this._dX = this._cellSize; //направо
 				this._dY = 0;
 			}
