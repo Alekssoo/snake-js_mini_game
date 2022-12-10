@@ -7,6 +7,7 @@ export default class Target {
         this.radius = cellsize/2-1;
         this._color = context.createLinearGradient(this.x, this.y, this.x+5, this.y+5);
         this._color.addColorStop(0, "black");
+        this._color.addColorStop(0.13,"#c000ff");
         this._color.addColorStop(1, "orange");
     }
 

@@ -6,7 +6,7 @@ import Result from "./result.js"
 const canvas = document.querySelector(".canvas");
 const context = canvas.getContext("2d");
 const btn = document.querySelector('.btn');
-btn.style.display = "none";
+//btn.style.display = "none";
 
 
 export default class General { 
